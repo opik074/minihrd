@@ -31,11 +31,14 @@ class KaryawanAdmin (admin.ModelAdmin):
     search_fields = ['nama', 'alamat', 'email', 'no_telpon']
     list_per_page = 25
 
+admin.site.register(Karyawan,KaryawanAdmin)
+
 
 class AkunAdmin (admin.ModelAdmin):
     list_display = ['akun', 'karyawan', 'jenis_akun']
-    list_filter = ('jenis_akun')
+    list_filter = ('jenis_akun',)
     search_fields = []
     list_per_page = 25
 
-admin.site.register(Akun,AkunAdmin)
+
+admin.site.register(Akun, AkunAdmin)

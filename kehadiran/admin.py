@@ -6,7 +6,7 @@ from kehadiran.models import Kehadiran
 
 class KehadiranAdmin (admin.ModelAdmin):
     list_display = ['karyawan', 'jenis_kehadiran', 'waktu']
-    list_filter = ('jenis_kehadiran')
+    list_filter = ('jenis_kehadiran',)
     search_fields = []
     list_per_page = 25
 

@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import user
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -10,7 +10,7 @@ class Divisi (models.Model):
     nama = models.CharField(max_length=100)
     keterangan = models.TextField(blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nama
 
 
@@ -18,7 +18,7 @@ class Jabatan (models.Model):
     nama = models.CharField(max_length=100)
     keterangan = models.TextField(blank=True)
 
-    def __unicode(self):
+    def __str__(self):
         return self.nama
 
 
@@ -35,7 +35,7 @@ class Karyawan (models.Model):
     )
 
     nama = models.CharField(max_length=100)
-    alamat = models.CharField(blank=True)
+    alamat = models.TextField(blank=True)
     jenis_kelamin = models.CharField(
         max_length=10, choices=JENIS_KELAMIN_CHOICES)
     jenis_karyawan = models.CharField(
@@ -44,11 +44,12 @@ class Karyawan (models.Model):
     email = models.CharField(max_length=100, blank=True)
     no_rekening = models.CharField(max_length=100)
     pemilik_rekening = models.CharField(max_length=100)
-    divisi = models.ForeignKey(Divisi)
-    jabatan = models.ForeignKey(Jabatan)
+    divisi = models.ForeignKey(Divisi, on_delete=models.CASCADE)
+    jabatan = models.ForeignKey(Jabatan, on_delete=models.CASCADE)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nama
+
 
 class Akun (models.Model):
     JENIS_AKUN_CHOICES = (
@@ -56,10 +57,9 @@ class Akun (models.Model):
         ('admin', 'Administrator'),
     )
 
-    akun = models.ForeignKey(User)
-    Karyawan = models.ForeignKey(Karyawan)
-    jenis_akun = models.CharField(max_length=20,choices=JENIS_AKUN_CHOICES)
+    akun = models.ForeignKey(User, on_delete=models.CASCADE)
+    karyawan = models.ForeignKey(Karyawan, on_delete=models.CASCADE)
+    jenis_akun = models.CharField(max_length=20, choices=JENIS_AKUN_CHOICES)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.Karyawan.nama
-        
